@@ -9,18 +9,18 @@
     tools:showIn="@layout/activity_detail">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/dile_name"
         android:layout_width="65dp"
         android:layout_height="17dp"
         android:layout_marginStart="16dp"
         android:text="File Name"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
-        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintBaseline_toBaselineOf="@+id/file"
+        app:layout_constraintEnd_toStartOf="@+id/file"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/file"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -30,25 +30,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/statsl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="184dp"
         android:text="Stats"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView9"
-        app:layout_constraintEnd_toStartOf="@+id/textView9"
+        app:layout_constraintBaseline_toBaselineOf="@+id/stats"
+        app:layout_constraintEnd_toStartOf="@+id/stats"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/file" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

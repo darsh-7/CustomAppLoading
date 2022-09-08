@@ -1,13 +1,16 @@
 package com.udacity
 
 import android.app.DownloadManager
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -15,6 +18,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -36,23 +40,21 @@ class MainActivity : AppCompatActivity() {
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-        custom_button.setOnClickListener {
-            if(URL != null) {
-                custom_button.buttonState = ButtonState.Loading
-                download()
-            }else {
-                    Toast.makeText(applicationContext, "please select file", Toast.LENGTH_LONG).show()
-            }
-        }
-
-
-
-
-
+        createChannel(
+            getString(R.string.CHANNEL_ID),
+            "Download Done"
+        )
     }
 
-
-
+    fun onClickDownload(view: View) {
+        if (URL != null) {
+            custom_button.buttonState = ButtonState.Loading
+            custom_button.isClickable = false
+            download()
+        } else {
+            Toast.makeText(applicationContext, "please select file", Toast.LENGTH_LONG).show()
+        }
+    }
 
 
     fun onRadioButtonClicked(view: View) {
@@ -70,6 +72,32 @@ class MainActivity : AppCompatActivity() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            custom_button.isClickable = true
+            custom_button.buttonState = ButtonState.Completed
+            Toast.makeText(applicationContext, "done", Toast.LENGTH_LONG).show()
+
+            val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+
+            var downloadStatus = "Fail"
+
+            val query = DownloadManager.Query()
+            query.setFilterById(id!!)
+
+            val cursor = downloadManager.query(query)
+            if (cursor.moveToFirst()) {
+                val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+
+                if (DownloadManager.STATUS_SUCCESSFUL == status) {
+                    downloadStatus = "Success"
+                }
+            }
+
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.sendNotification(
+                CHANNEL_ID,
+                applicationContext,
+                fileName!!,
+                downloadStatus)
         }
     }
 
@@ -98,6 +126,26 @@ class MainActivity : AppCompatActivity() {
             "https://github.com/square/retrofit/archive/refs/heads/master.zip"
 
         private const val CHANNEL_ID = "channelId"
+
     }
 
+    private fun createChannel(channelId: String, channelName: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_HIGH
+            )
+
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.RED
+            notificationChannel.enableVibration(true)
+            notificationChannel.description = "Done"
+
+            val notificationManager = getSystemService(
+                NotificationManager::class.java
+            )
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+    }
 }

@@ -23,7 +23,6 @@ class LoadingButton @JvmOverloads constructor(
     private var heightSize = 0
     private var LoadingProgress = 0
     private var buttonText = ""
-//    private val button = findViewById<Button>(R.id.custom_button)
 
     private val valueAnimator = ValueAnimator.ofInt(0, 360).setDuration(3000)
 
@@ -32,12 +31,10 @@ class LoadingButton @JvmOverloads constructor(
         if (new == ButtonState.Loading) {
             buttonText = "Loading"
             valueAnimator.start()
-//            button.isClickable = false
         }else{
             buttonText = "Download"
             valueAnimator.cancel()
 
-//            button.isClickable = true
             LoadingProgress = 0
         }
         invalidate()
