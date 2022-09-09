@@ -9,6 +9,7 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
 import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.withStyledAttributes
 import kotlin.properties.Delegates
@@ -41,12 +42,20 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     private var buttonBackgroundColor = 0
-    private var buttonTextColor = 0
-    private var buttonLoadingColor = 0
-    private var buttonCircleColor = 0
-
+    private var textColor = 0
     init {
+        context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.LoadingButton,
+            0, 0).apply {
 
+            try {
+                textColor = ContextCompat.getColor(context, R.color.white)
+                buttonBackgroundColor = ContextCompat.getColor(context, R.color.colorPrimary)
+            } finally {
+                recycle()
+            }
+        }
         buttonState = ButtonState.Completed
         valueAnimator.apply {
             addUpdateListener {
@@ -64,7 +73,7 @@ class LoadingButton @JvmOverloads constructor(
         super.onDraw(canvas)
 
         // button background
-        paint.color = Color.BLUE
+        paint.color = buttonBackgroundColor
         canvas?.drawRect(0f,0f,widthSize.toFloat(), heightSize.toFloat(), paint)
 
         // loading button
@@ -72,7 +81,7 @@ class LoadingButton @JvmOverloads constructor(
         canvas?.drawRect(0f, 0f, widthSize * LoadingProgress/360f, heightSize.toFloat(), paint)
 
         // text
-        paint.color = Color.WHITE
+        paint.color = textColor
         canvas?.drawText(buttonText, widthSize/2.0f, heightSize/2.0f + 40.0f, paint)
 
         // circle
