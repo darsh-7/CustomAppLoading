@@ -40,6 +40,10 @@ class LoadingButton @JvmOverloads constructor(
         invalidate()
     }
 
+    private var buttonBackgroundColor = 0
+    private var buttonTextColor = 0
+    private var buttonLoadingColor = 0
+    private var buttonCircleColor = 0
 
     init {
 

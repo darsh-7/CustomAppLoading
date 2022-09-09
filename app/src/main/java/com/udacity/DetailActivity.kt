@@ -20,21 +20,21 @@ class DetailActivity : AppCompatActivity() {
         file.text = fileName
 
         val statsv = intent.getStringExtra("status")
-        stats.text = statsv
+        textView4.text = statsv
 
-        scaler()
+//        scaler()
     }
 
-    private fun scaler() {
-        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 4f)
-        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 4f)
-        val animator = ObjectAnimator.ofPropertyValuesHolder(
-            stats, scaleX, scaleY)
-        animator.repeatCount = 1
-        animator.duration = 2000
-        animator.repeatMode = ObjectAnimator.REVERSE
-        animator.start()
-    }
+//    private fun scaler() {
+//        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 4f)
+//        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 4f)
+//        val animator = ObjectAnimator.ofPropertyValuesHolder(
+//            stats, scaleX, scaleY)
+//        animator.repeatCount = 1
+//        animator.duration = 2000
+//        animator.repeatMode = ObjectAnimator.REVERSE
+//        animator.start()
+//    }
 
     fun naveToMain(view: View){
         val intent = Intent(this, MainActivity::class.java)

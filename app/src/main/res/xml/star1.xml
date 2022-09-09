@@ -1,4 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <Transition
 
-</PreferenceScreen>
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@+id/end"
+        app:duration="2000"
+        app:autoTransition="animateToEnd">
+
+        <KeyFrameSet>
+            <KeyAttribute
+                app:framePosition="50"
+                app:motionTarget="@id/textView4"
+                android:scaleY="2.0"
+                android:scaleX="2.0" />
+        </KeyFrameSet>
+
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@id/textView4"
+            android:alpha="0.0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/dile_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginEnd="152dp"
+            android:layout_marginRight="152dp" />
+        <Constraint
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/dile_name"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp" />
+        <Constraint
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            android:id="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintHorizontal_bias="0.95"
+            android:layout_marginRight="152dp"
+             />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@id/textView4"
+            android:alpha="1.0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/status"/>
+    </ConstraintSet>
+</MotionScene>

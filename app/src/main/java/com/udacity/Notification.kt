@@ -30,7 +30,10 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .setContentTitle(applicationContext
             .getString(R.string.notification_title))
         .setContentText(messageBody)
-        .setContentIntent(contentPendingIntent)
+        .addAction(
+            R.drawable.ic_assistant_black_24dp,
+            applicationContext.getString(R.string.notification_button),
+            contentPendingIntent)
         .setAutoCancel(true)
 
     notify(0, builder.build())
